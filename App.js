@@ -12,8 +12,8 @@ const videoSource = require("./assets/catSound1.mp4");
 export default function App() {
 
 const player = useVideoPlayer(videoSource, player => {
-    // player.loop = true;
-    // player.play();
+    player.loop = true;
+    player.play();
   });
 
   const { isPlaying } = useEvent(player, 'playingChange', { isPlaying: player.playing });
