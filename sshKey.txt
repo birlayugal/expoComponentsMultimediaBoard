@@ -1,0 +1,14 @@
+The key fingerprint is:
+SHA256:9FxmLdv9RXfZ/uOAGCPo/YEVF+cbV6+zM0BZ+ziLEUA birla.yugal2014@gmail.com
+The key's randomart image is:
++--[ED25519 256]--+
+|         .E. .. .|
+|           .++ .=|
+|        .. .Oooo*|
+|      .. oo= =+Bo|
+|     . .S+o +.* =|
+|    . . + + .+ =+|
+|     . o o ...=.o|
+|        . .   oo.|
+|         .     . |
++----[SHA256]-----+
