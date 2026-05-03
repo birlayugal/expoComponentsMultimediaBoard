@@ -40,10 +40,7 @@ const player = useVideoPlayer(videoSource, player => {
 
 class CatVideoButton extends React.Component {
 
-  resetAsync = async () => {
-   
-  }
-
+  
  render(){
   return(
     <VideoView 
