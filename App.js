@@ -41,20 +41,14 @@ const player = useVideoPlayer(videoSource, player => {
 class CatVideoButton extends React.Component {
 
   resetAsync = async () => {
-    await this._video.stopAsync();
-    await this._video.setPosotionAsync(0);
+   
   }
 
  render(){
   return(
     <VideoView 
       player={this.props.player}
-      ref={(c) => {this._video = c;}}
-      onPlaybackStatusUpdate = {(status)=> {
-        if(status.didJustFinish){
-          this.resetAsync();
-        }
-      }}
+    
 
         // source={this.props.source}
         style={{ 
