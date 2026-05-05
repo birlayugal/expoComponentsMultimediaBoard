@@ -17,6 +17,11 @@ const player = useVideoPlayer(videoSource, player => {
   });
 
   const { isPlaying } = useEvent(player, 'playingChange', { isPlaying: player.playing });
+
+  useEvent(player, 'ended', () => {
+    player.currentTime = 0;
+  });
+
   let size = 100; 
   return (
     <View style={styles.container}>
@@ -29,7 +34,11 @@ const player = useVideoPlayer(videoSource, player => {
             if (isPlaying) {
               player.pause();
             } else {
-              player.play();
+              if (player.currentTime >= player.duration) {
+                player.currentTime = 0;
+              }
+                
+                player.play();
             }
           }}
         />
@@ -40,22 +49,12 @@ const player = useVideoPlayer(videoSource, player => {
 
 class CatVideoButton extends React.Component {
 
-  resetAsync = async () => {
-    await this._video.stopAsync();
-    await this._video.setPosotionAsync(0);
-  }
-
+  
  render(){
   return(
     <VideoView 
       player={this.props.player}
-      ref={(c) => {this._video = c;}}
-      onPlaybackStatusUpdate = {(status)=> {
-        if(status.didJustFinish){
-          this.resetAsync();
-        }
-      }}
-
+      
         // source={this.props.source}
         style={{ 
           width: this.props.width || this.props.size || 400, 
