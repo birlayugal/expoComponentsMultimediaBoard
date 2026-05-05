@@ -42,7 +42,7 @@ class CatVideoButton extends React.Component {
 
   resetAsync = async () => {
     await this._video.stopAsync();
-    await this._video.setPosotionAsync(0);
+    await this._video.setPositionAsync(0);
   }
 
  render(){
