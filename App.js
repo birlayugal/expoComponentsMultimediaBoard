@@ -22,25 +22,41 @@ const player = useVideoPlayer(videoSource, player => {
     player.currentTime = 0;
   });
 
+  // state = {
+  //   isready:"false"
+  // } 
+
+  // _loadFontsAsync = async () => {
+  //   await Expo.Font.loadAsync({
+  //     CooperBlackRegular: require("./assets/CooperBlackRegular.ttf")
+  //   });
+  // }
+
+const togglePlay = () => {
+  if (isPlaying) {
+    player.pause();
+  } else {
+    if (player.currentTime >= player.duration) {
+      player.currentTime = 0;
+    }
+
+    player.play();
+  }
+};  
+
   let size = 100; 
   return (
     <View style={styles.container}>
-      <Text>Cat Sounds</Text>
-      <CatVideoButton player={player}  size={size}/>
+      <Text style={{
+        color: "yellow",
+        fontSize: 42,
+      }}>Cat Sounds</Text>
+      <CatVideoButton player={player}  size={size} onPress={togglePlay}/>
       
       <Button
-          title={isPlaying ? 'Pause' : 'Play'}
-          onPress={() => {
-            if (isPlaying) {
-              player.pause();
-            } else {
-              if (player.currentTime >= player.duration) {
-                player.currentTime = 0;
-              }
-                
-                player.play();
-            }
-          }}
+          title={isPlaying ? 'Pause' : 'Play'} name="cat1"
+            onPress={togglePlay}
+
         />
       <StatusBar style="auto" />
     </View>
@@ -55,6 +71,8 @@ class CatVideoButton extends React.Component {
     <View>
       <TouchableHighlight onPress={() => {
         console.log("Pressed the cat.")
+          this.props.onPress()
+        
       }}>
       <View>
     <VideoView 
@@ -81,7 +99,7 @@ class CatVideoButton extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: "green",
     alignItems: 'center',
     justifyContent: 'center',
   },
