@@ -22,15 +22,7 @@ const player = useVideoPlayer(videoSource, player => {
     player.currentTime = 0;
   });
 
-  // state = {
-  //   isready:"false"
-  // } 
-
-  // _loadFontsAsync = async () => {
-  //   await Expo.Font.loadAsync({
-  //     CooperBlackRegular: require("./assets/CooperBlackRegular.ttf")
-  //   });
-  // }
+  
 
 const togglePlay = () => {
   if (isPlaying) {
