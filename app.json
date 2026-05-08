@@ -19,7 +19,8 @@
           "supportsBackgroundPlayback": true,
           "supportsPictureInPicture": true
         }
-      ]
+      ],
+      "expo-font"
     ],
     "ios": {
       "supportsTablet": true

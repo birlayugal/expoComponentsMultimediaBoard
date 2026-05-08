@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, Button, TouchableHighlight } from 'react-native
 import {useVideoPlayer, VideoView} from 'expo-video'
 import { useEvent } from 'expo';
 import React from 'react';
-
+import { useFonts } from 'expo-font';
 
       // <const videoSource= {require("./assets/catSound1.mp4")}  size={size}/>
 const videoSource = require("./assets/catSound1.mp4");
@@ -22,7 +22,19 @@ const player = useVideoPlayer(videoSource, player => {
     player.currentTime = 0;
   });
 
-  
+  // state = {
+  //   isready:"false"
+  // } 
+
+  // _loadFontsAsync = async () => {
+  //   await Expo.Font.loadAsync({
+  //     CooperBlackRegular: require("./assets/CooperBlackRegular.ttf")
+  //   });
+  // }
+
+  const [fontLoaded] = useFonts({
+    CooperBlackRegular: require("./assets/CooperBlackRegular.ttf")
+  })
 
 const togglePlay = () => {
   if (isPlaying) {
@@ -36,12 +48,21 @@ const togglePlay = () => {
   }
 };  
 
+if(!fontLoaded){
+  return null;
+}
   let size = 100; 
   return (
+  //   {
+  //   if (!this.state.isReady){
+  //     return(<Expo.AppLoading/>);
+  //   }
+  // }
     <View style={styles.container}>
       <Text style={{
         color: "yellow",
         fontSize: 42,
+        fontFamily: "CooperBlackRegular",
       }}>Cat Sounds</Text>
       <CatVideoButton player={player}  size={size} onPress={togglePlay}/>
       
