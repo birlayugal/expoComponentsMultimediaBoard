@@ -11,16 +11,7 @@ import {Asset} from 'expo-asset'
 
 export default function App() {
 
-const player = useVideoPlayer(videoSource, player => {
-    // player.loop = true;
-    // player.play();
-  });
 
-  const { isPlaying } = useEvent(player, 'playingChange', { isPlaying: player.playing });
-
-  useEvent(player, 'ended', () => {
-    player.currentTime = 0;
-  });
 
   // state = {
   //   isready:"false"
@@ -66,17 +57,6 @@ useEffect(() => {
     CooperBlackRegular: require("./assets/CooperBlackRegular.ttf")
   })
 
-const togglePlay = () => {
-  if (isPlaying) {
-    player.pause();
-  } else {
-    if (player.currentTime >= player.duration) {
-      player.currentTime = 0;
-    }
-
-    player.play();
-  }
-};  
 
 if(!fontLoaded){
   return null;
@@ -99,10 +79,10 @@ if(!fontLoaded){
         flexDirection : 'row'
       }}>
       <CatVideoButton source={require("./assets/1.mp4")}
- player={player}  size={size} onPress={togglePlay}/>
-      <CatVideoButton source={require("./assets/2.mp4")} player={player}  size={size} onPress={togglePlay}/>
+   size={size} />
+      <CatVideoButton source={require("./assets/2.mp4")}   size={size} />
 
-      <CatVideoButton source={require("./assets/3.mp4")} player={player}  size={size} onPress={togglePlay}/>
+      <CatVideoButton source={require("./assets/3.mp4")}   size={size} />
 
     </View>
 
@@ -110,10 +90,10 @@ if(!fontLoaded){
       <View style ={{
         flexDirection : 'row'
       }}>
-      <CatVideoButton player={player}  size={size} onPress={togglePlay}/>
-      <CatVideoButton player={player}  size={size} onPress={togglePlay}/>
+      <CatVideoButton source={require("./assets/4.mp4")}  size={size} />
+      <CatVideoButton source={require("./assets/5.mp4")} size={size} />
 
-      <CatVideoButton player={player}  size={size} onPress={togglePlay}/>
+      <CatVideoButton  source={require("./assets/6.mp4")} size={size} />
 
     </View>
       
@@ -122,51 +102,71 @@ if(!fontLoaded){
       <View style ={{
         flexDirection : 'row'
       }}>
-      <CatVideoButton player={player}  size={size} onPress={togglePlay}/>
-      <CatVideoButton player={player}  size={size} onPress={togglePlay}/>
+      <CatVideoButton source={require("./assets/7.mp4")}  size={size} />
+      <CatVideoButton  source={require("./assets/8.mp4")} size={size} />
 
-      <CatVideoButton player={player}  size={size} onPress={togglePlay}/>
+      <CatVideoButton source={require("./assets/9.mp4")}  size={size} />
 
     </View>
-      <Button
-          title={isPlaying ? 'Pause' : 'Play'} name="cat1"
-            onPress={togglePlay}
-
-        />
+      
       <StatusBar style="auto" />
   </View>
 
   );
 }
 
-class CatVideoButton extends React.Component {
+function CatVideoButton (props) {
 
-  
- render(){
+  const player = useVideoPlayer (props.source); 
+
+  const {isPlaying} = useEvent (
+    player,
+  'playingChange',
+  {isPlaying:player.playing}    
+  );
+
+
+  useEvent(player, 'ended', () => {
+    player.currentTime = 0;
+  });
+
+  const togglePlay = () =>{
+    if (isPlaying){
+      player.pause();
+
+    }else {
+      if(player.currentTime >= player.duration){
+        player.currentTime = 0;
+      }
+      player.play();
+    }
+  };
+
+ {
   return(
     <View style={{
       margin:10,
     }}>
       <TouchableHighlight onPress={() => {
         console.log("Pressed the cat.")
-          this.props.onPress()
+          togglePlay()
         
       }}>
-      <View>
+      
     <VideoView 
-      player={this.props.player}
+      player={player}
       
         // source={this.props.source}
         style={{ 
-          width: this.props.width || this.props.size || 400, 
-          height: this.props.width || this.props.size ||  400,
+          width: props.width || props.size || 400, 
+          height: props.width || props.size ||  400,
          }}
          fullscreenOptions={{ enable: true }}
          allowsPictureInPicture
          contentFit="cover"
       />
        
-    </View>
+    
     </TouchableHighlight>
     </View>
         )
